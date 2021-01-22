@@ -58,7 +58,7 @@ module.exports.addRoom = async function(req,res,next)
     KhuyenMai === undefined ? null: KhuyenMai
     SoNguoiToiDa === undefined ? null: SoNguoiToiDa
     MoTa === undefined ? null: MoTa 
-    TrangThai = 'San Sang'
+    TrangThai = '1'
     MaNV = '1'
     try{
         const status = await query(`Insert Into phong (LoaiP,GiaThue,KhuyenMai,SoNguoiToiDa,MoTa,TrangThai,MaNV) VALUES ('${LoaiP}','${GiaThue}','${KhuyenMai}','${SoNguoiToiDa}','${MoTa}','${TrangThai}','${MaNV}')`)
