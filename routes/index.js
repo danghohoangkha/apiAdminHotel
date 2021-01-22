@@ -16,4 +16,7 @@ router.get('/getRoom/:id',roomController.getRoom)
 router.post('/updateRoom/:id',roomController.updateRoom)
 router.post('/deleteRoom/:id',roomController.deleteRoom)
 router.get('/phieudatphong',roomController.phieudatphong)
+router.post('/createOrder',roomController.CreateOrder)
+router.get('/getAllOrder',roomController.getAllOrder);
+router.get('/getDetailOrder/:id',roomController.getDataOrder)
 module.exports = router;

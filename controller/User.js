@@ -51,6 +51,14 @@ module.exports.Login = async function (req, res, next) {
         }
     }
 }
+module.exports.deleteEmployee = async function(req,res,next){
+    try{
+    let status = await query(`Delete From nhanvien Where MaNV = '${req.body.MaNV}' `)
+    res.status(200).json({msg:'Oke'})
+    }catch(error){
+        res.status(401).json({msg:'Error'})
+    }
+}
 module.exports.verifyIdToken= async function(req,res,next){
     res.json({"msg":"Ngon lanh canh dao"})
 }
@@ -101,13 +109,21 @@ module.exports.getEmployee = async function (req,res,next){
     }
 }
 module.exports.AddEmployee = async function (req,res,next){
+    const hashPassword = bcrypt.hashSync(req.body.passWord,10)
+    const nhanvien = await query(`Select * From nhanvien Where userName = '${req.body.userName}'`)
+    if(nhanvien.length!==0)
+    {
+        res.status(401).json({msg:'User Name đã tồn tại'})
+    }
+    else{
     try{
-        const status = await query(`Insert Into phong (HoTen,GioiTinh,NgaySinh,DiaChi,LuongCoBan,LuongTangCa,ChucVu) VALUES ('${req.body.HoTen,req.body.GioiTinh,req.body.NgaySinh,req.body.DiaChi,req.LuongCoBan,req.LuongTangCa,req.ChucVu}')`)
+        const status = await query(`Insert Into nhanvien (HoTen,GioiTinh,NgaySinh,DiaChi,LuongCoBan,LuongTangCa,ChucVu,userName,passWord) VALUES ('${req.body.HoTen}','${req.body.GioiTinh}','${req.body.NgaySinh}','${req.body.DiaChi}','${req.body.LuongCoBan}','${req.body.LuongTangCa}','${req.body.ChucVu}','${req.body.userName}','${hashPassword}')`)
         res.status(200).json({msg:"Them nhan vien thanh cong"})
     }catch(error)
     {
         console.log(error)
         res.status(500).json({msg:"error"})
+    }
     }
 }
 module.exports.getEmployee = async function(req,res,next){

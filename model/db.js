@@ -1,9 +1,9 @@
 var mysql=require('mysql');
 var db=mysql.createConnection({
-    host: "sql12.freesqldatabase.com",
-    user: "sql12386834",
-    password: "Wd3CKsRfy3",
-    database: "sql12386834",
+    host: "freedb.tech",
+    user: "freedbtech_khiemkhiem8499",
+    password: "khiemkhiem8499",
+    database: "freedbtech_hotelmanagement",
   });
   db.connect((err)=>{
     if(err){

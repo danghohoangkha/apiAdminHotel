@@ -11,6 +11,45 @@ module.exports.getAllRoom=async function(req,res,next)
         res.status(500).json({msg : 'error'})
     }
 }
+module.exports.CreateOrder = async function(req,res,next)
+{
+    let {totalOrder,HinhThucTT,MaPDP,MaNV}=req.body
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    today = yyyy+ '-' + mm + '-' + dd 
+    try{
+        let status = await query(`Insert into hoadon (TongTienThu,HinhThucTT,MaPDP,MaNV,NgayTao) VALUES ('${totalOrder}','${HinhThucTT}','${MaPDP}','${MaNV}','${today}')`)
+        res.status(200).json({msg:"Oke"})
+    }catch(error)
+    {
+        console.log(error)
+        res.status(500).json({msg:'Error'})
+    }
+
+}
+module.exports.getAllOrder = async function(req,res,next){
+    try{
+        const data = await query('Select * From hoadon As h , nhanvien As n Where h.MaNV = n.MaNV')
+        res.status(200).json(data)
+    }catch(error)
+    {
+        console.log(error)
+        res.status(500).json({msg:"Error"})
+    }
+}
+module.exports.getDataOrder = async function(req,res,next){
+    try{
+        const data = await query(`Select * From hoadon Where MaHD = ${req.params.id}`)
+        res.status(200).json(data)
+    }catch(error)
+    {
+        console.log(error)
+        res.status(500).json({msg:"Error"})
+    }
+}
 module.exports.addRoom = async function(req,res,next)
 {
     let {LoaiP,GiaThue,KhuyenMai,SoNguoiToiDa,MoTa,TrangThai,MaNV}=req.body

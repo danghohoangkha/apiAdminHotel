@@ -16,4 +16,7 @@ router.post('/change_employee/:id',User.changeEmployee);
 router.post('/verifyToken',passport.authenticate('jwt',{session:false}),(req,res)=>{
     res.json({"msg":"verify success"});
 })
+router.post('/DeleteEmployee',User.deleteEmployee)
+router.post('/AddEmployee',User.AddEmployee)
+
 module.exports = router;
